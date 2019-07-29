@@ -77,7 +77,7 @@ export default {
     };
   },
   mounted: function () {
-    let url="http://127.0.0.1:8000/backend/rotations"
+    let url=this.GLOBAL.ajaxUrlPre+"/backend/rotations"
     this.$nextTick(function () {
       this.$http.get(url).then((response)=>{
         this.table  = response.data.data;

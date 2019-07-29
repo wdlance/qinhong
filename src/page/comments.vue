@@ -106,7 +106,7 @@ export default {
     handlePage(page){
       this.$set(this.params,'page',page)
       this.loading = true
-      let url="http://127.0.0.1:8000/backend/comments"
+      let url=this.GLOBAL.ajaxUrlPre+"/backend/comments"
       const params = this.params;
       this.$nextTick(function () {
         this.$http.get(url,{params:params}).then((response)=>{

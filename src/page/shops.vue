@@ -115,6 +115,7 @@
 </template>
 
 <script>
+import Vue from "vue"
 export default {
   data() {
     let self = this;
@@ -130,8 +131,9 @@ export default {
         lazy: true,
         lazyLoad (node, resolve) {
           const { level } = node;
+          let _this = this
           setTimeout(() => {
-            let url = "http://127.0.0.1:8000/backend/regions"
+            let url = Vue.prototype.GLOBAL.ajaxUrlPre+"/backend/regions"
             let params = {
               level:level+1,
               id: level==0?100000:node.value
@@ -153,7 +155,7 @@ export default {
     handlePage(page){
       this.$set(this.params,'page',page)
       this.loading = true
-      let url="http://127.0.0.1:8000/backend/shops"
+      let url=Vue.prototype.GLOBAL.ajaxUrlPre+"/backend/shops"
       const params = this.params;
       this.$nextTick(function () {
         this.$http.get(url,{params:params}).then((response)=>{

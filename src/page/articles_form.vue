@@ -95,7 +95,7 @@ export default {
   props: ['id'],
   data() {
     return {
-      baseUrl:'http://127.0.0.1:8000/backend/articles',
+      baseUrl:this.GLOBAL.ajaxUrlPre+'/backend/articles',
       loading:true,
       btnLoading:false,
       dialogVisible: false,

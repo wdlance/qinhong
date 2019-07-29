@@ -1,5 +1,11 @@
 <template>
   <div id="brands">
+  <el-button-group>
+        <el-button type="primary" icon="el-icon-plus" :size="inputSize" @click="addData()" plain></el-button>
+        <el-button type="primary" icon="el-icon-download" :size="inputSize" @click="batchDownloadData()" plain></el-button>
+        <el-button type="primary" icon="el-icon-delete" :size="inputSize" @click="batchDeleteData()" plain></el-button>
+        <el-button type="primary" icon="el-icon-refresh" :size="inputSize" @click="refresh()" plain></el-button>
+      </el-button-group>
     <el-table
             :data="table"
             style="width: 100%"
@@ -31,7 +37,6 @@
               label="品牌介绍"
               min-width="300">
       </el-table-column>
-
       <el-table-column
               prop="create_time"
               label="创建时间"
@@ -50,8 +55,8 @@
               min-width="160">
         <template slot-scope="scope">
           <el-button-group>
-            <el-button type="primary" icon="el-icon-view" size="mini" plain></el-button>
-            <el-button type="primary" icon="el-icon-edit" size="mini" plain></el-button>
+            <el-button type="primary" icon="el-icon-view" size="mini" plain @click="preView(scope.row.id)"></el-button>
+            <el-button type="primary" icon="el-icon-edit" size="mini" plain @click="modify(scope.row.id)"></el-button>
             <el-button type="primary" icon="el-icon-delete" size="mini" plain></el-button>
           </el-button-group>
         </template>
@@ -78,16 +83,26 @@ export default {
       size:10,
       total:0,
       params: {},
+       inputSize:'small',
     };
   },
   mounted: function () {
     this.handlePage(1);
   },
   methods: {
-    handlePage(page){
+  addData:function(){
+  this.$router.push("/update"+this.$route.path)
+  },
+  preView(id){
+  this.$router.push("/preview"+this.$route.path+"/"+id)
+  },
+  modify(id){
+  this.$router.push("/update"+this.$route.path+"/"+id)
+  },
+  handlePage(page){
       this.$set(this.params,'page',page)
       this.loading = true
-      let url="http://127.0.0.1:8000/backend/brands"
+      let url=this.GLOBAL.ajaxUrlPre+"/backend/brands"
       const params = this.params;
       this.$nextTick(function () {
         this.$http.get(url,{params:params}).then((response)=>{

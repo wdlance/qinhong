@@ -28,37 +28,14 @@
         <el-row class="full">
           <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="3">
             <el-aside width="auto">
-              <el-menu default-active="1" style="padding-bottom: 20px">
-                <template v-for="(item,index) in menus">
-                  <el-menu-item v-if="item.page" :index="index+'_'" @click="handleTabsCreate(item)">
-                    <i :class="item.icon"></i>
-                    <span slot="title">{{ item.name }}</span>
-                  </el-menu-item>
-                  <el-submenu v-else :index="index+'_'" style="overflow: hidden">
-                    <template slot="title">
-                      <i :class="item.icon"></i>
-                      <span slot="title">{{ item.name }}</span>
-                    </template>
-                    <el-menu-item :key="item.page"  v-for="(val,key) in item.child" :index="index+'_'+key+'_'" @click="handleTabsCreate(val)">
-                      <i :class="val.icon"></i>
-                      <span slot="title">{{ val.name }}</span>
-                    </el-menu-item>
-                  </el-submenu>
-                </template>
-              </el-menu>
+              <Menus />
             </el-aside>
           </el-col>
           <el-col :xs="16" :sm="18" :md="20" :lg="21" :xl="21">
             <el-main>
-              <el-tabs v-model="editableTabsValue" closable @edit="handleTabsEdit">
-                <el-tab-pane
-                        :key="item.name"
-                        v-for="(item, index) in editableTabs"
-                        :label="item.title"
-                        :name="item.name">
-                  <component :is="item.content" @handleTabsCreate="handleTabsCreate" @handleTabsClose="handleTabsClose" :id="item.id"></component>
-                </el-tab-pane>
-              </el-tabs>
+      
+              
+            <div class="content"><router-view></router-view></div>
             </el-main>
           </el-col>
         </el-row>
@@ -68,27 +45,19 @@
 </template>
 
 <script>
+import Menus from "@/components/menus"
+import HistoryHandlers from "@/components/historyHandlers"
 export default {
+components:{Menus,HistoryHandlers},
   data() {
     return {
-      menus:[],
       circleUrl:'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       editableTabsValue: '',
       editableTabs: [],
     };
   },
-  mounted: function () {
-    let url="http://127.0.0.1:8000/backend/menus"
-    this.$nextTick(function () {
-      this.$http.get(url).then((response)=>{
-        this.menus  = response.data;
-      },(error)=>{
-        console.log('请求失败',error);
-      });
-
-      // Code that will run only after the
-      // entire view has been rendered
-    })
+  created:function(){
+    this.$store.dispatch("get_menus_action");
   },
   methods: {
     handleTabsCreate(tab){
@@ -159,7 +128,10 @@ export default {
   }
   .el-main{
     height: 92vh;
-    padding: 2px 4px;
+    padding: 10px;
+  }
+  .main{
+  height:91vh;
   }
   .full{
     width: 100%;

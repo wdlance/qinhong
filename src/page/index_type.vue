@@ -83,7 +83,7 @@ export default {
     };
   },
   mounted: function () {
-    let url="http://127.0.0.1:8000/backend/goods"
+    let url=this.GLOBAL.ajaxUrlPre+"/backend/goods"
     this.$nextTick(function () {
       this.$http.get(url).then((response)=>{
         this.table  = response.data.data;
