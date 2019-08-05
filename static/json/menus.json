@@ -1,0 +1,52 @@
+[{
+	"name":"首页",
+	"page":"home",
+	"children":[{
+		"name":"系统首页",
+		"page":"system-home"
+	},{
+		"name":"账号设置",
+		"page":"account-set"
+	},{
+		"name":"系统信息",
+		"page":"system-info"
+	},{
+		"name":"登录日志",
+		"page":"logs"
+	}]
+},{
+	"name":"商品",
+	"page":"goods",
+	"children":[{
+		"name":"商品列表",
+		"page":"list"
+	},{
+		"name":"添加商品",
+		"page":"add"
+	},{
+		"name":"商品回收站",
+		"page":"recycle"
+	}]
+},{
+	"name":"店铺",
+	"page":"shop",
+	"children":[{
+		"name":"店铺信息",
+		"page":"list"
+	},{
+		"name":"品牌申请",
+		"page":"brands"
+	},{
+		"name":"店铺评价",
+		"page":"recomend"
+	}]
+},{
+	"name":"客户",
+	"page":"customer"
+},{
+	"name":"优惠券",
+	"page":"cupon"
+},{
+	"name":"消息",
+	"page":"news"
+}]

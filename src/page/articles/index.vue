@@ -4,7 +4,7 @@
     <table-header>
     <template slot="conditions">
      <el-form-item label="标题">
-          <el-input v-model="params.title" placeholder="搜索标题" :size="inputSize"></el-input>
+          <el-input v-model="params.title" placeholder="搜索标题"></el-input>
         </el-form-item>
         <el-form-item label="状态">
           <el-select v-model="params.status" placeholder="状态" :size="inputSize" clearable>
@@ -96,14 +96,15 @@
 
 <script>
 import TableHeader from "@/components/tableHeader.vue"
+import Axios from "axios"
 export default {
  components: {
     TableHeader
   },
   data() {
     return {
-      baseUrl:this.GLOBAL.ajaxUrlPre+'/backend/articles',
-      inputSize:'small',
+      baseUrl:'/backend/articles',
+
       loading:true,
       table:[],
       size:10,
@@ -139,7 +140,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.loading = true
-        this.$http.post(this.baseUrl+'/delete',{ids:ids}).then((response)=>{
+        Axios.post(this.baseUrl+'/delete',{ids:ids}).then((response)=>{
           this.$message({
             showClose: true,
             message: response.data,
@@ -169,7 +170,7 @@ export default {
       this.loading = true
       const params = this.params;
       this.$nextTick(function () {
-        this.$http.get(this.baseUrl,{params:params}).then((response)=>{
+        Axios.get(this.baseUrl,{params:params}).then((response)=>{
           this.table  = response.data.data;
           this.total = response.data.meta.total;
           this.size = response.data.meta.per_page;

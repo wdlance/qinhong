@@ -1,70 +1,153 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-
+import Store from "@/store"
 Vue.use(Router)
 
-export default new Router({
-  routes: [
+const router = new Router({
+  mode: "history",
+  routes: [{
+      path: "/",
+      redirect: 'login',
+    }, {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/pages/login'),
+    },
     {
-      path: '/',
-      redirect:"/brands"
-    },{
-      path: '/brands',
-      name: 'brands',
-      component:() => import('@/page/brands/index.vue'),
-    },{
-      path: '/users',
-      name: 'users',
-      component:() => import('@/page/users.vue'),
-    },{
+      path: '/home',
+      name: 'home',
+      component: () => import('@/pages/home'),
+      children: [{
+        path: '',
+        redirect: 'system-home'
+      }, {
+        path: 'system-home',
+        name: 'system-home',
+        component: () => import('@/pages/home/index')
+      }, {
+        path: 'account-set',
+        name: 'account-set',
+        component: () => import('@/pages/home/account-set')
+      }, {
+        path: 'system-info',
+        name: 'system-info',
+        component: () => import('@/pages/home/system-info')
+      }, {
+        path: 'logs',
+        name: 'logs',
+        component: () => import('@/pages/home/logs')
+      }]
+    },
+    {
       path: '/goods',
       name: 'goods',
-      component:() => import('@/page/goods.vue'),
-    },{
-      path: '/merchants',
-      name: 'merchants',
-      component:() => import('@/page/merchants.vue'),
-      },{
-      path: '/shops',
-      name: 'shops',
-      component:() => import('@/page/shops.vue'),
-      },{
-      path: '/shops_type',
-      name: 'shops_type',
-      component:() => import('@/page/shops_type.vue'),
-      },{
-      path: '/comments',
-      name: 'comments',
-      component:() => import('@/page/comments.vue'),
-      },{
-      path: '/articles',
-      name: 'articles',
-      component:() => import('@/page/articles/index.vue'),
-      },{
-        path:"/preview/:page/:id?",
-        name:"preview",
-        component:()=> import("@/components/preView")
-      },{
-        path:"/update/:page/:id?",
-        name:"update",
-        component:()=> import("@/components/addOrEdit")
-      }/*,{
-      path: '/cities',
-      name: 'cities',
-      component:() => import('@/page/cities.vue'),
-    },{
-      path: '/peddles',
-      name: 'peddles',
-      component:() => import('@/page/peddles.vue'),
-    },{
-      path: '/stats',
-      name: 'stats',
-      component:() => import('@/page/stats.vue'),
-    },{
-      path: '/promise',
-      name: 'promise',
-      component:() => import('@/page/promise.vue'),
-    }*/
+      component: () => import('@/pages/goods'),
+      children: [{
+        path: '',
+        redirect: 'list'
+      }, {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/pages/goods/index')
+      }, {
+        path: 'add',
+        name: 'add',
+        component: () => import('@/pages/goods/add')
+      }, {
+        path: 'recycle',
+        name: "recycle",
+        component: () => import('@/pages/goods/recycle')
+      }]
+    },
+    {
+      path: '/shop',
+      name: 'shop',
+      component: () => import('@/pages/shop'),
+      children: [{
+        path: '',
+        redirect: 'list'
+      }, {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/pages/shop/index')
+      }, {
+        path: 'addShop',
+        name: 'addShop',
+        component: () => import('@/pages/shop/addShop')
+      }, {
+        path: 'brands',
+        name: "brands",
+        component: () => import('@/pages/shop/brands')
+      }, {
+        path: 'recomend',
+        name: "recomend",
+        component: () => import('@/pages/shop/recomend')
+      }]
+    },
+    {
+      path: '/customer',
+      name: "customer",
+      component: () => import('@/pages/customer/index')
+    },
+    {
+      path: '/customer/:id',
+      name: "customer-info",
+      component: () => import('@/pages/customer/detail')
+
+    }, {
+      path: '/cupon',
+      component: () => import('@/pages/cupon'),
+      children: [{
+        path: '',
+        redirect: 'list'
+      }, {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/pages/cupon/index')
+      }, {
+        path: 'add',
+        name: 'add',
+        component: () => import('@/pages/cupon/add')
+      }]
+    },
+    {
+      path: '/news',
+      component: () => import('@/pages/news'),
+      children: [{
+        path: '',
+        redirect: 'list'
+      }, {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/pages/news/index')
+      }, {
+        path: 'add',
+        name: 'add',
+        component: () => import('@/pages/news/add')
+      }]
+    }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  let loginUser = localStorage.getItem("loginUser")
+  if (!loginUser) {
+    if (to.path != "/login") {
+      next({
+        path: '/login',
+      })
+    } else {
+      next()
+    }
+  } else {
+    if (to.path != "/login") {
+      Store.dispatch("get_menus_action")
+      next()
+    } else {
+      next("/home")
+    }
+  }
+
+})
+
+export default router

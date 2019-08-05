@@ -1,11 +1,11 @@
 <template>
   <div id="brands">
     <table-header>
-    <template slot="conditions">
-    <el-form-item label="品牌名称">
+      <template slot="conditions">
+        <el-form-item label="品牌名称">
           <el-input v-model="params.name" placeholder="搜索品牌名称" :size="inputSize"></el-input>
-    </el-form-item>
-    </template>
+        </el-form-item>
+      </template>
     </table-header>
     <el-table :data="table" style="width: 100%" height="80vh" v-loading="loading">
       <el-table-column type="selection" width="55">
@@ -46,6 +46,9 @@
 </template>
 <script>
 import TableHeader from "@/components/tableHeader.vue"
+import Axios from "axios"
+import Sign from "@/util/sign"
+import Common from "@/util/common"
 export default {
   components: {
     TableHeader
@@ -76,19 +79,29 @@ export default {
     handlePage(page) {
       this.$set(this.params, 'page', page)
       this.loading = true
-      let url = this.GLOBAL.ajaxUrlPre + "/backend/brands"
+      let url = "/backend/brands"
       const params = this.params;
       this.$nextTick(function() {
-        this.$http.get(url, { params: params }).then((response) => {
-          this.table = response.data.data;
-          this.total = response.data.total;
-          this.size = response.data.per_page;
-          setTimeout(() => {
-            this.loading = false;
-          }, this.GLOBAL.time)
-        }, (error) => {
-          console.log('请求失败', error);
-        });
+        this.$store.dispatch("get_brands_action", params).then(res => {
+          if (res.code == "000") {
+            this.table = res.data.data;
+            this.total = res.data.total;
+            this.size = res.data.per_page;
+            setTimeout(() => {
+              this.loading = false;
+            }, this.GLOBAL.time)
+          }
+        }).catch(e => {
+          if (Common.isObject(e)) {
+            if (e.response && e.response.status == 401) {
+              this.$router.push("/login")
+            } else {
+              console.log('请求品牌信息失败', JSON.stringify(e));
+            }
+          } else {
+            console.log('请求品牌信息失败', e);
+          }
+        })
       })
     },
     handleTabsCreate(tab) {

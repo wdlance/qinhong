@@ -68,6 +68,7 @@
 </template>
 
 <script>
+ import Axios from "axios"
 export default {
   data() {
     return {
@@ -77,9 +78,9 @@ export default {
     };
   },
   mounted: function () {
-    let url=this.GLOBAL.ajaxUrlPre+"/backend/rotations"
+    let url="/backend/rotations"
     this.$nextTick(function () {
-      this.$http.get(url).then((response)=>{
+     Axios.get(url).then((response)=>{
         this.table  = response.data.data;
       },(error)=>{
         console.log('请求失败',error);

@@ -1,0 +1,60 @@
+$borderColor:#dcdcdc;
+$borderRadius:6px;
+$mainColor:#18bc9c;
+
+.relative {
+  position: relative;
+}
+
+.inner {
+  width: 90%;
+  max-width:1680px;
+  margin: auto;
+  height: 100%;
+}
+
+.full {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.caption {
+  border-bottom: 1px solid $borderColor;
+  height: 50px;
+  line-height: 50px;
+  background: #e4e4e4;
+  padding: 0 20px;
+}
+
+.el-pagination {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.table-caption {
+  border-bottom: 1px solid $borderColor;
+  height: 50px;
+  line-height: 50px;
+  background: #e4e4e4;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+
+.search-wrap {
+  border: 1px solid $borderColor;
+  margin: 20px 0px;
+
+  .el-form {
+    padding: 20px;
+  }
+}
+
+.middle-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

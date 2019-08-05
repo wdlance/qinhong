@@ -56,4 +56,7 @@ export default {
 #editor {
   line-height: normal;
 }
+.ql-container{
+  height:500px!important;
+}
 </style>

@@ -22,13 +22,19 @@
 export default {
   data() {
     return {
-      inputSize: 'size',
-      name:''
+
+      name: ''
+    }
+  },
+  props: {
+    inputSize: {
+      type: String,
+      default: 'small'
     }
   },
   methods: {
     addData() {
-    this.$parent.addData()
+      this.$parent.addData()
     },
     bathcDownloadData() {
 
@@ -43,3 +49,10 @@ export default {
 }
 
 </script>
+<style>
+.table-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+</style>

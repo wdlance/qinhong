@@ -116,6 +116,7 @@
 
 <script>
 import Vue from "vue"
+ import Axios from "axios"
 export default {
   data() {
     let self = this;
@@ -133,12 +134,12 @@ export default {
           const { level } = node;
           let _this = this
           setTimeout(() => {
-            let url = Vue.prototype.GLOBAL.ajaxUrlPre+"/backend/regions"
+            let url = "/backend/regions"
             let params = {
               level:level+1,
               id: level==0?100000:node.value
             };
-            self.$http.get(url,{params:params}).then((response)=>{
+            Axios.get(url,{params:params}).then((response)=>{
               resolve(response.data);
             },(error)=>{
               console.log('请求失败',error);
@@ -155,10 +156,10 @@ export default {
     handlePage(page){
       this.$set(this.params,'page',page)
       this.loading = true
-      let url=Vue.prototype.GLOBAL.ajaxUrlPre+"/backend/shops"
+      let url="/backend/shops"
       const params = this.params;
       this.$nextTick(function () {
-        this.$http.get(url,{params:params}).then((response)=>{
+        Axios.get(url,{params:params}).then((response)=>{
           this.table  = response.data.data;
           this.total = response.data.total;
           this.size = response.data.per_page;

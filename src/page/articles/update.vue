@@ -75,6 +75,7 @@
 </template>
 <script>
 import Veditor from "@/components/Editor";
+ import Axios from "axios"
 export default {
   components: {
     Veditor
@@ -82,7 +83,7 @@ export default {
   //  props: ['id'],
   data() {
     return {
-      baseUrl: this.GLOBAL.ajaxUrlPre + '/backend/articles',
+      baseUrl:'/backend/articles',
       loading: true,
       btnLoading: false,
       dialogVisible: false,
@@ -110,8 +111,8 @@ export default {
   },
   methods: {
     loadType() {
-      let url = this.GLOBAL.ajaxUrlPre + "/backend/articles-types"
-      this.$http.get(url).then((response) => {
+      let url = "/backend/articles-types"
+      Axios.get(url).then((response) => {
 
         this.types = response.data;
 
@@ -131,7 +132,7 @@ export default {
     submitForm() {
       this.btnLoading = true
       let _this = this
-      this.$http.post(this.baseUrl, this.form).then((response) => {
+      Axios.post(this.baseUrl, this.form).then((response) => {
         //console.log(response.data);
         setTimeout(() => {
           this.btnLoading = false;
@@ -180,7 +181,7 @@ export default {
     handleForm(id) {
       this.loading = true
       this.$nextTick(function() {
-        this.$http.get(this.baseUrl + '/' + id).then((response) => {
+        Axios.get(this.baseUrl + '/' + id).then((response) => {
           this.form = response.data;
           setTimeout(() => {
             this.loading = false;

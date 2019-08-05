@@ -76,6 +76,7 @@
 </template>
 
 <script>
+ import Axios from "axios"
 export default {
   data() {
     return {
@@ -94,10 +95,10 @@ export default {
     handlePage(page){
       this.$set(this.params,'page',page)
       this.loading = true
-      let url=this.GLOBAL.ajaxUrlPre+"/backend/shops_type"
+      let url="/backend/shops_type"
       const params = this.params;
       this.$nextTick(function () {
-        this.$http.get(url,{params:params}).then((response)=>{
+        Axios.get(url,{params:params}).then((response)=>{
           this.table  = response.data.data;
           this.total = response.data.total;
           this.size = response.data.per_page;

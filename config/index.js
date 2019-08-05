@@ -11,7 +11,14 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        
+      '/api': {
+        target: 'http://10.0.2.21', // 后台api
+        changeOrigin: true, //是否跨域
+        // secure: true,
+        pathRewrite: {
+          '^/api': '' //需要rewrite的,
+        }
+      } 
     },
 
     // Various Dev Server settings
@@ -22,7 +29,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */

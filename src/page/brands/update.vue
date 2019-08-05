@@ -37,14 +37,15 @@
           <el-form-item label="品牌介绍">
             <el-input v-model="form.author" type="textarea"></el-input>
           </el-form-item>
-         
-         
+
+
         </el-form>
   </div>
 </template>
 
 <script>
 import Veditor from "../../components/Editor";
+ import Axios from "axios"
 export default {
   components: {
     Veditor
@@ -52,7 +53,7 @@ export default {
 //  props: ['id'],
   data() {
     return {
-      baseUrl:this.GLOBAL.ajaxUrlPre+'/backend/articles',
+      baseUrl:'/backend/articles',
       loading:true,
       btnLoading:false,
       dialogVisible: false,
@@ -79,7 +80,7 @@ export default {
     this.loadType();
   },
   methods: {
-   
+
     }
   }
 
