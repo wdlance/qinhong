@@ -3,7 +3,10 @@
     <div class="relative">
       <el-form ref="form" label-width="120px">
         <el-form-item label="优惠券类型：" rquire>
-          <div class="meta">勾选店铺分类有助于客户快速找到您的店铺，例如“床，沙发，桌子”</div>
+          <el-select v-model="cupon.type" placeholder="请选择">
+            <el-option v-for="item in cuponType" :key="item.id" :label="item.name" :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="优惠券名称：">
           <el-input v-model="cupon.name"></el-input>
@@ -49,6 +52,9 @@
             <el-radio :label="2">指定分类</el-radio>
           </el-radio-group>
         </el-form-item>
+        <el-form-item v-if="cupon.limits!=0">
+          <Choosed :type="dialog.type" :choosedData="choosedData" @addChoosed="addChoosed" />
+        </el-form-item>
         <el-form-item label="备注：">
           <el-input type="textarea" :maxlength="textareaLength"></el-input>
         </el-form-item>
@@ -63,18 +69,18 @@
 </template>
 <script>
 import Limits from "./limits"
+import Choosed from "./choosed"
 export default {
   components: {
-
     Limits,
-
+    Choosed
   },
   data() {
     return {
       onNum: this.Global.onNum,
       textareaLength: this.Global.textareaLength,
       cupon: {
-        type: '', //类型
+        type: 1, //类型
         number: 0, //发行量
         limits: 0, //适用范围
         price: '', //面额
@@ -86,28 +92,45 @@ export default {
         days: 0, //固定天数
         remark: '' //备注
       },
+      cuponType: [{
+        id: 1,
+        name: "注册赠券"
+      }, {
+        id: 2,
+        name: "全场赠券"
+      }, {
+        id: 3,
+        name: "会员赠券"
+      }],
       dialog: {
         visible: false,
         type: 'goods',
         title: "指定商品"
-      }
+      },
+      choosedData: [{
+        name: '1'
+      }], //已选商品或者分类
     }
   },
-  created: function() {
-
-    console.log(this.$route.path)
-  },
+  created: function() {},
   methods: {
+    addChoosed() {
+      if (this.cupon.limits == 1) {
+        this.dialog.type = "goods"
+        this.dialog.visible = true
+        this.dialog.title = "添加商品"
+      } else if (this.cupon.limits == 2) {
+        this.dialog.type = "classify"
+        this.dialog.visible = true
+        this.dialog.title = "添加分类"
+      }
+    },
     changeLimits(label) {
 
       if (label == 1) {
-        this.dialog.visible = true
         this.dialog.type = "goods"
-        this.dialog.title = "指定商品"
       } else if (label == 2) {
-        this.dialog.visible = true
         this.dialog.type = "classify"
-        this.dialog.title = "指定分类"
       }
     }
   }

@@ -1,16 +1,10 @@
 <template>
   <div class="inner">
-    <el-button-group>
-      <el-button type="primary">全部商品<span>（{{tableData.length}}）</span></el-button>
-      <el-button type="primary">已上架<span>（）</span></el-button>
-      <el-button type="primary">未上架<span>（）</span></el-button>
-      <el-button type="primary">待审核<span>（）</span></el-button>
-      <el-button type="primary">未通过<span>（）</span></el-button>
-    </el-button-group>
+
     <div class="search-wrap">
       <div class="table-caption flex">
         <div class="left">筛选条件</div>
-        <div class="right">高级检索</div>
+
       </div>
       <el-form :inline="true">
         <el-form-item label="输入搜索：">

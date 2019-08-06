@@ -1,7 +1,8 @@
-import Axios from "axios"
 import Vue from "vue"
 import Sign from "@/util/sign";
 import Common from "@/util/common"
+import Axios from "@/util/interceptors"
+
 const state = {
   adminList: [],
   dataCount: 0
@@ -20,32 +21,26 @@ const mutations = {
     state.dataCount = payload.data.list.total
   },
   edit_account_mutation: (state, payload) => {
-    
+
   }
 }
 const actions = {
   /*管理员登录*/
   account_login_action: (ctx, param) => {
+
     let data = {
-      username: param.username,
+      mobile: param.mobile,
       password: param.password
     }
     let formData = new FormData()
-    formData.append("username", param.username)
+    formData.append("mobile", param.mobile)
     formData.append("password", param.password)
     return new Promise((resolve, reject) => {
-      let headers = Sign.setHeader(data)
-      Axios.post(`/backend/auth/login`, formData, {
-        headers: headers
-      }).then(function(response) {
-        if (response.data.code == '000') {
-          localStorage.setItem("loginUser", JSON.stringify(response.data.data))
-          resolve(response.data)
-        } else {
-          resolve(response.data)
-        }
+      Axios.post(`/login`, formData).then(response=>{
+        localStorage.setItem("loginUser", JSON.stringify(response))
+        resolve(response)
       }, function(err) {
-        Common.delError(err)
+        reject("用户名/密码错误")
       });
     })
   },

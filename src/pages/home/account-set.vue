@@ -11,7 +11,7 @@
           <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
         <el-form-item label="用户名：" required>
-          <el-input :maxlength="inputLength" readpnly disabled v-model="username"></el-input>
+          <el-input :maxlength="inputLength" readonly disabled v-model="username"></el-input>
         </el-form-item>
         <el-form-item label="旧密码：" required>
           <el-input type="text" :maxlength="inputLength" v-model="oldPassword" v-inputLimit="numOrLetter"></el-input>

@@ -8,24 +8,23 @@ import router from "./router"
 import Vuex from 'vuex'
 import store from './store'
 import VueBus from './util/bus'
-import Axios from "axios"
-import ENV from "../config/api.config"
+//引入axios
+import Axios from 'axios'
+//修改原型链，全局使用axios,这样之后可在每个组件的methods中调用$axios命令完成数据请求
+Vue.prototype.$axios=Axios 
+/*引入axios拦截器*/
+import "./util/interceptors"
+
 /*引入全局css样式*/
 import "@/assets/css/common.scss"
+
 /*引入全局directives*/
 import preventReClick from "@/util/directives"
 import inputLimit from "@/util/directives"
+
 /*引入全局变量*/
 import Global from "@/util/global"
 Vue.prototype.Global = Global
-
-if(ENV.ENV=='dev'){
-	Axios.defaults.baseURL = '/api'
-}else{
-	Axios.defaults.baseURL = 'http://10.0.2.21'
-}
-
-/*Axios.defaults.baseURL = 'http://10.0.2.21'*/
 
 Vue.use(VueBus);
 Vue.use(VueRouter)

@@ -56,12 +56,11 @@ function queryParams(data) {
 function setHeader(data) {
   // body...
   return {
-    'sign': createSign(data),
-    'simestamp': Date.parse(new Date()) / 1000,
+    'Sign': createSign(data),
+    'Timestamp': Date.parse(new Date()) / 1000,
     'Authorization': localStorage.getItem("loginUser") ? "Bearer "+JSON.parse(localStorage.getItem("loginUser")).account.access_token : "",
   }
 }
 export default {
-
   setHeader: setHeader
 }

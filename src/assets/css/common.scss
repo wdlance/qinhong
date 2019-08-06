@@ -23,9 +23,9 @@ $mainColor:#18bc9c;
 
 .caption {
   border-bottom: 1px solid $borderColor;
-  height: 50px;
-  line-height: 50px;
-  background: #e4e4e4;
+  height: 40px;
+  line-height: 40px;
+  background: #f9fafc;
   padding: 0 20px;
 }
 
@@ -57,4 +57,8 @@ $mainColor:#18bc9c;
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+a{
+  cursor:pointer;
 }

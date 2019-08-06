@@ -95,11 +95,11 @@
         <div class="box flex">
           <div class="item">
             <div>20000</div>
-            <div>今日新增</div>
+            <div>昨日新增</div>
           </div>
           <div class="item">
             <div>20000</div>
-            <div>昨日新增</div>
+            <div>本周新增</div>
           </div>
           <div class="item">
             <div>20000</div>
@@ -114,11 +114,11 @@
         <div class="box flex">
           <div class="item">
             <div>20000</div>
-            <div>今日新增</div>
+            <div>昨日新增</div>
           </div>
           <div class="item">
             <div>20000</div>
-            <div>昨日新增</div>
+            <div>本周新增</div>
           </div>
           <div class="item">
             <div>20000</div>
@@ -131,11 +131,11 @@
         <div class="box flex">
           <div class="item">
             <div>20000</div>
-            <div>今日新增</div>
+            <div>昨日新增</div>
           </div>
           <div class="item">
             <div>20000</div>
-            <div>昨日新增</div>
+            <div>本周新增</div>
           </div>
           <div class="item">
             <div>20000</div>
@@ -145,17 +145,35 @@
       </div>
     </section>
     <section class="section5">
-      <div class="caption">系统通知</div>
-      <div class="content">
-        <div id="chart1" :style="{width: '100%', height: '300px'}"></div>
+      <div class="caption">店铺浏览统计</div>
+      <div class="content flex">
+        <div class="all">
+          <div class="all1">
+            <div>本月浏览量</div>
+            <div>10000</div>
+            <div>10%同比上月</div>
+          </div>
+          <div class="all2">
+            <div>本周浏览量</div>
+            <div>1000</div>
+            <div>10%同比上周</div>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <div class="time flex">
+            <a class="item">昨日</a>
+            <a class="item">本周</a>
+            <a class="item">本月</a>
+            <div>
+              <el-date-picker v-model="value3" type="datetimerange" range-separator="~" start-placeholder="开始日期" end-placeholder="结束日期">
+              </el-date-picker>
+            </div>
+          </div>
+          <div id="chart1" :style="{width: '100%', height: '300px'}"></div>
+        </div>
       </div>
     </section>
-    <section class="section6">
-      <div class="caption">系统通知</div>
-      <div class="content">
-        <div id="chart2" :style="{width: '100%', height: '300px'}"></div>
-      </div>
-    </section>
+
   </div>
 </template>
 <script>
@@ -169,9 +187,7 @@ export default {
     drawChart1: function(id) {
       let chart = echarts.init(document.getElementById(id))
       let option = {
-        title: {
-          text: '堆叠区域图'
-        },
+
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -181,9 +197,7 @@ export default {
             }
           }
         },
-        legend: {
-          data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-        },
+
         toolbox: {
           feature: {
             saveAsImage: {}
@@ -204,47 +218,12 @@ export default {
           type: 'value'
         }],
         series: [{
-            name: '邮件营销',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            data: [120, 132, 101, 134, 90, 230, 210]
-          },
-          {
-            name: '联盟广告',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name: '视频广告',
-            type: 'line',
-            stack: '总量',
-            areaStyle: {},
-            data: [150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name: '直接访问',
-            type: 'line',
-            stack: '总量',
-            areaStyle: { normal: {} },
-            data: [320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-            name: '搜索引擎',
-            type: 'line',
-            stack: '总量',
-            label: {
-              normal: {
-                show: true,
-                position: 'top'
-              }
-            },
-            areaStyle: { normal: {} },
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
-          }
-        ]
+          name: '邮件营销',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {},
+          data: [120, 132, 101, 134, 90, 230, 210]
+        }]
       };
 
       // 绘制图表
@@ -259,15 +238,22 @@ export default {
   padding-bottom: 100px;
 }
 
-section{
-  margin-top:20px;
-  min-height:100px;
+section {
+  margin-top: 20px;
+  min-height: 100px;
+}
+.section2,.section3{
+  .flex-item{
+  .item{
+  width:33.33%;
+  }
+  }
+}
+.flex-item {
+  width: 50%;
+  padding: 0 15px;
 }
 
-.flex-item{
-  width:50%;
-  padding:0 15px;
-}
 .box {
   border: 1px solid $borderColor;
   border-radius: 6px;
@@ -279,4 +265,22 @@ section{
   padding: 20px;
 }
 
-</st yle>
+.all {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width:120px;
+}
+.chart-wrap{
+  flex:1;
+  width:100%;
+}
+.time {
+  justify-content: flex-end;
+  align-items: center;
+  .item{
+  padding:0 10px;
+  }
+}
+
+</style>

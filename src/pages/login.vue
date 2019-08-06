@@ -3,7 +3,7 @@
     <el-form ref="form" :model="form">
       <h3>与好家商家管理平台</h3>
       <el-form-item>
-        <el-input v-model="form.username" :maxlength="inputLength"></el-input>
+        <el-input v-model="form.mobile" :maxlength="inputLength"></el-input>
       </el-form-item>
       <el-form-item>
         <el-input v-model="form.password" :maxlength="inputLength"></el-input>
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       form: {
-        username: 'admin',
+        mobile: '13006616675',
         password: '123456'
       },
       inputLength:this.Global.inputLength
@@ -30,21 +30,16 @@ export default {
 
   methods: {
     onSubmit(e) {
-
       if (e.target.disabled) {
         return
       }
       this.$store.dispatch("account_login_action", {
-        username: this.form.username,
+        mobile: this.form.mobile,
         password: this.form.password
       }).then(res => {
-        if (res.code == "000") {
-          this.$router.push("/home")
-        } else {
-          this.$message.error(res.msg);
-        }
+        this.$router.push("/home")
       }).catch(e => {
-        this.$message.error("登录失败！");
+        this.$message.error(e);
       })
     }
   }

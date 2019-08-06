@@ -17,25 +17,18 @@ const router = new Router({
       path: '/home',
       name: 'home',
       component: () => import('@/pages/home'),
-      children: [{
+      children: [ {
         path: '',
-        redirect: 'system-home'
-      }, {
-        path: 'system-home',
-        name: 'system-home',
+        name: 'index',
         component: () => import('@/pages/home/index')
       }, {
         path: 'account-set',
         name: 'account-set',
         component: () => import('@/pages/home/account-set')
-      }, {
-        path: 'system-info',
-        name: 'system-info',
-        component: () => import('@/pages/home/system-info')
-      }, {
-        path: 'logs',
-        name: 'logs',
-        component: () => import('@/pages/home/logs')
+      },{
+        path:'authentication',
+        name:'authentication',
+        component:()=>import('@/pages/home/authentication')
       }]
     },
     {
@@ -108,6 +101,14 @@ const router = new Router({
         path: 'add',
         name: 'add',
         component: () => import('@/pages/cupon/add')
+      },{
+        path: 'edit',
+        name: 'edit',
+        component: () => import('@/pages/cupon/add')
+      },{
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/pages/cupon/detail')
       }]
     },
     {

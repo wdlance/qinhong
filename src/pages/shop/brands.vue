@@ -9,8 +9,8 @@
         </div>
       </div>
       <el-form :inline="true">
-        <el-form-item label="输入搜索：">
-          <el-input placeholder="审批人"></el-input>
+        <el-form-item>
+          <el-input placeholder="输入品牌名称"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary">查询</el-button>
@@ -23,13 +23,13 @@
     <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55">
       </el-table-column>
-      <el-table-column prop="num" label="编号" width="120">
+      <el-table-column prop="num" label="编号" min-width="100">
       </el-table-column>
-      <el-table-column prop="picture" label="品牌图标" width="120">
+      <el-table-column prop="picture" label="品牌图标" min-width="100">
       </el-table-column>
-      <el-table-column prop="name" label="品牌名称" show-overflow-tooltip>
+      <el-table-column prop="name" label="品牌名称" min-width="100">
       </el-table-column>
-      <el-table-column prop="classify" label="所属类别" width="120">
+      <el-table-column prop="classify" label="所属类别" min-width="100">
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">

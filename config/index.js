@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://10.0.2.21', // 后台api
+        target: 'http://www.qxgnew.com/merchant', // 后台api
         changeOrigin: true, //是否跨域
         // secure: true,
         pathRewrite: {

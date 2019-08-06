@@ -10,13 +10,11 @@
         </div>
       </div>
       <el-form :inline="true">
-        <el-form-item label="输入搜索：">
-          <el-input placeholder="审批人"></el-input>
+        <el-form-item>
+          <el-input placeholder="店铺名称"></el-input>
         </el-form-item>
-        <el-form-item label="商品分类：">
-        </el-form-item>
-        <el-form-item label="商品品牌：">
-        </el-form-item>
+
+
         <el-form-item>
           <el-button type="primary">查询</el-button>
         </el-form-item>

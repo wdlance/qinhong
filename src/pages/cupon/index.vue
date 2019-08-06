@@ -1,15 +1,13 @@
 <template>
   <div class="inner">
-
     <el-button-group>
       <el-button type="primary" @click="addCupon">添加优惠券</el-button>
-
     </el-button-group>
     <div class="search-wrap">
       <div class="table-caption flex">
         <div class="left">筛选条件</div>
         <div class="right">
-<el-button size="mini" @click="showConditions">高级检索</el-button>
+          <el-button size="mini" @click="showConditions">高级检索</el-button>
         </div>
       </div>
       <el-form :inline="true">
@@ -38,30 +36,33 @@
       </el-table-column>
       <el-table-column prop="num" label="编号" width="120">
       </el-table-column>
-      <el-table-column prop="picture" label="用户ID" width="120">
+      <el-table-column prop="picture" label="优惠券名称" width="120">
       </el-table-column>
-      <el-table-column prop="name" label="用户账号" show-overflow-tooltip>
+      <el-table-column prop="name" label="优惠券类型" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="classify" label="用户昵称" width="120">
+      <el-table-column prop="classify" label="可使用商品" width="120">
       </el-table-column>
-      <el-table-column prop="flag" label="注册时间" width="120">
+      <el-table-column prop="flag" label="使用门槛" width="120">
       </el-table-column>
-
+      <el-table-column prop="flag" label="面值" width="120">
+      </el-table-column>
+      <el-table-column prop="flag" label="有效期" width="120">
+      </el-table-column>
+      <el-table-column prop="flag" label="状态" width="120">
+      </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleLook(scope.$index, scope.row)">查看</el-button>
-
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4" :page-sizes="[100, 200, 300, 400]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="400">
     </el-pagination>
-
   </div>
 </template>
 <script>
-
 export default {
 
   data() {
@@ -70,16 +71,21 @@ export default {
         num: 1
       }],
       currentPage4: 0,
-      dialog:{
-      visible:false
+      dialog: {
+        visible: false
       }
     }
   },
   methods: {
-    handleLook: function(index, item) {
-this.$router.push("/customer/1")
+    addCupon: function() {
+      this.$router.push('/cupon/add')
     },
-
+    handleLook: function(index, item) {
+      this.$router.push("/cupon/detail")
+    },
+    handleEdit: function(index, item) {
+      this.$router.push('/cupon/edit')
+    },
     handleDelete: function(index, item) {
 
     },
@@ -92,13 +98,10 @@ this.$router.push("/customer/1")
     handleSizeChange: function() {
 
     },
-    addCupon:function(){
-    this.$router.push('/cupon/add')
-    }
+
   }
 }
 
 </script>
 <style lang="scss" scoped>
-
 </style>

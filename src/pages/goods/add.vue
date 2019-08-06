@@ -3,7 +3,8 @@
     <div class="relative">
       <el-form ref="form" label-width="100px">
         <el-form-item label="商品分类：" rquire>
-          <el-input></el-input>
+          <Classify />
+          <div class="meta">您当前选择的商品类别是：家具> 床> 双人床</div>
         </el-form-item>
         <el-form-item label="商品名称：" rquire>
         </el-form-item>
@@ -62,7 +63,6 @@
           <el-input type="textarea"></el-input>
         </el-form-item>
         <el-form-item label="风格：">
-
           <el-input type="textarea"></el-input>
         </el-form-item>
         <el-form-item label="材质：">
@@ -101,14 +101,16 @@
 </template>
 <script>
 import Veditor from "@/components/Editor";
+import Classify from "@/components/classify"
 export default {
   components: {
-    Veditor
+    Veditor,
+    Classify
   },
-  data(){
-  return{
+  data() {
+    return {
 
-  }
+    }
   }
 }
 
@@ -132,7 +134,7 @@ export default {
 .el-form {
   width: 800px;
   margin: auto;
-  padding:100px;
+  padding: 100px;
 }
 
 .button-group {
